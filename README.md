@@ -26,4 +26,5 @@ To test the BibTeX import locally run:
 ### Database
 
 The connection string is something like
+
 `DB_DSN=postgres://biblio:xxxxxx@localhost:5432/biblio?sslmode=disable`
