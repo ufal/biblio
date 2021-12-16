@@ -10,12 +10,14 @@ To start the server run:
 
 The `SERVER_ADDR` variable defaults to `:8080`.
 
+The `DB_DSN` variable is a PostgreSQL connection string.
+
 ### POST /import-bibtex
 
 |Data|Type|Description|
 |---|---|---|
 |request body|BibTeX|bibliographical items in BibTeX format|
-|response body|JSON|bibliographical items in JSON format|
+|response body|JSON|bibliographical items in JSON format + a list of known and unknown authors|
 
 To test the BibTeX import locally run:
 
@@ -23,4 +25,5 @@ To test the BibTeX import locally run:
 
 ### Database
 
+The connection string is something like
 `DB_DSN=postgres://biblio:xxxxxx@localhost:5432/biblio?sslmode=disable`
