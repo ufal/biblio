@@ -28,3 +28,9 @@ To test the BibTeX import locally run:
 The connection string is something like
 
 `DB_DSN=postgres://biblio:xxxxxx@localhost:5432/biblio?sslmode=disable`
+
+### Importing authors
+
+To import authors from an XML file run:
+
+`DB_DSN=<dsn> go run ./cmd/xmlimporter authors.xml`
