@@ -65,16 +65,17 @@ func (h *importBibtexHandler) ServeHTTP(w http.ResponseWriter, req *http.Request
 		http.Error(w, "failed to load all authors", http.StatusBadRequest)
 		return
 	}
-	storedAuthors := make(map[string]*biblio.Author)
+	storedAuthors := make(map[string]*biblio.Author, len(authors))
 	for _, author := range authors {
 		storedAuthors[author.FullName()] = author
 	}
-	importedAuthors := make(map[string]*biblio.Author)
-	var knownAuthors, unknownAuthors []*biblio.Author
+	importedAuthors := make(map[string]*biblio.Author, len(entries))
+	knownAuthors, unknownAuthors := make([]*biblio.Author, 0, len(entries)), make([]*biblio.Author, 0, len(entries))
 	for _, entry := range entries {
 		if authors, ok := entry.Fields["author"]; ok {
-			var authorIDs []string
-			for _, fullName := range bibtex.ParseAuthors(authors) {
+			parsedAuthors := bibtex.ParseAuthors(authors)
+			authorIDs := make([]string, 0, len(parsedAuthors))
+			for _, fullName := range parsedAuthors {
 				if author, ok := importedAuthors[fullName]; ok {
 					authorIDs = append(authorIDs, author.ID)
 					continue
